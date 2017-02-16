@@ -6,7 +6,8 @@ var router = express.Router();
  * Create a session
  */
 router.post('/', function(req, res){
-	req.session.userId = Date.now();
+	// Here you can do user Authentication
+	req.session.userId = Date.now(); // Here you assign the user ID to your session
 	req.session.views = 1;
 	res.status(200).json(req.session);
 });
@@ -16,7 +17,7 @@ router.post('/', function(req, res){
  * Delete the current active session
  */
 router.delete('/', function(req, res){
-	req.session.destroy();
+	req.session.destroy(); // After you destroy the session, you need to reauthenticate
 	res.status(204).send();
 });
 
@@ -25,7 +26,7 @@ router.delete('/', function(req, res){
  * Get current active session here you can look at protected info that match with your userId
  */
 router.get('/', function(req, res){
-	if(req.session.userId){
+	if(req.session.userId){ // If the session doesn't have an userId(accessToken, etc...) then you don't show the protected token
 		req.session.views++;
 		res.status(200).json(req.session);
 	}else{

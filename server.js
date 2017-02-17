@@ -19,9 +19,13 @@ var sess = {
   }
 };
 
+app.set('trust proxy',1);
+sess.cookie.secure = true;
+sess.cookie.proxy = true;
+
 app.use(bodyParser.json());
 app.use(session(sess));
-app.use('/sessions', router);
+app.use('/api/sessions', router);
 
 app.listen(config.PORT, function(){
 	console.log("Server running on port 8080");
